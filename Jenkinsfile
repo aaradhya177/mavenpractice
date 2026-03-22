@@ -32,11 +32,11 @@ pipeline {
             }
         }
 
-        stage('Run Application') {
-            steps {
-                sh 'timeout 15 java -jar target/MyApp-1.0-SNAPSHOT.jar'
-            }
-        }
+       stage('Run Application') {
+    steps {
+        sh 'timeout 15 java -jar target/MyApp-1.0-SNAPSHOT.jar'
+    }
+}
     }
 
     post {
