@@ -32,11 +32,22 @@ pipeline {
             }
         }
 
-       stage('Run Application') {
-    steps {
-        sh 'timeout 15 java -jar target/MyApp-1.0-SNAPSHOT.jar'
-    }
-}
+        stage('Run Application') {
+            steps {
+                sh '''
+                echo "Looking for JAR file..."
+                JAR=$(ls target/*.jar | head -n 1)
+
+                if [ -z "$JAR" ]; then
+                    echo "No JAR file found!"
+                    exit 1
+                fi
+
+                echo "Running $JAR"
+                timeout 15 java -jar $JAR
+                '''
+            }
+        }
     }
 
     post {
